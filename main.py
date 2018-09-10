@@ -15,13 +15,14 @@ def is_person_exist(persons, name):
   return False
 
 def create_new_person(department, position, name):
-  return [department, position, name, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  return [department, position, name, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-def add_record_to_person(persons, name, month, time, money):
+def add_record_to_person(persons, name, month, pay, time, money):
   for person in persons:
     if person[2] == name:
-      person[month*2+1] = time
-      person[month*2+2] = money
+      person[month*3+0] = pay
+      person[month*3+1] = time
+      person[month*3+2] = money
 
 def read_file_and_add_to_record(persons, file_name, month):
   with open(file_name, newline='') as file:
@@ -33,6 +34,7 @@ def read_file_and_add_to_record(persons, file_name, month):
       position = formated_row[0]
       name = formated_row[1]
       time = int(formated_row[3])+int(formated_row[4])
+      pay = int(formated_row[5])
       money = int(formated_row[6])
 
       # 0  , 1  ,  2  , 3      ,  4       , 5       , 6       , ...
@@ -40,7 +42,7 @@ def read_file_and_add_to_record(persons, file_name, month):
       if is_person_exist(out_rows, name) == False:
         out_rows.append(create_new_person(department, position, name))
 
-      add_record_to_person(out_rows, name, month, time, money)
+      add_record_to_person(out_rows, name, month, pay, time, money)
 
 if __name__ == '__main__':
   out_rows = []
